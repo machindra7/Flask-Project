@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>✨ Daily Task Tracker</h1>
+
+    <form method="POST">
+        <input type="text" name="task" placeholder="Enter your task..." required>
+        <button>Add</button>
+    </form>
+
+    <ul>
+        {% for t in tasks %}
+        <li class="{% if t.done %}done{% endif %}">
+            {{ t.task }}
+
+            <div>
+                {% if not t.done %}
+                <a href="/done/{{ loop.index0 }}">✔️</a>
+                {% endif %}
+                <a href="/delete/{{ loop.index0 }}">❌</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>
